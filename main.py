@@ -14,23 +14,38 @@ triSpread = 0.5 #affects distance of triangles
 #---------setting up functions-----------#
 def hexagon(side):
     t.forward(side)
-    t.right(theta)
+    t.left(theta)
     for i in range(5):
         t.forward(side)
-        t.right(phi)
-    t.left(theta)
+        t.left(phi)
+    t.right(theta+180)
     t.forward(side)
 
 def travel():
     t.up()
-    t.left(180-theta+alpha)
+    t.left(phi-alpha)
     t.forward(s*(triSpread/triCount))
-    t.left(alpha)
+    t.right(alpha)
     t.down()
+    
 
 def triangle(whichOne):
     for i in range(3):
         t.forward(s*triScale**whichOne)
         t.left(theta)
+#-------------------------------------#
 
+#-----------begin executing-----------#
+t.left(phi)
+hexagon(s)
+t.left(180)
+travel()
+
+for i in range(1,triCount):
+    travel()
+    triangle(i)
+#-------------------------------------#
+
+#--------Make the image persist-------#
 turtle.exitonclick()
+#-------------------------------------#
