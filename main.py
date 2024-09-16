@@ -34,7 +34,7 @@ def travel(): # function count 2
 
 def triangle(whichOne): # function count 3
         fullSide=s*triScale**whichOne
-        gap = (s*(triSpread/triCount))*2.5*triScale**whichOne
+        gap = (s*(triSpread/triCount))*2.65*triScale**whichOne #right now it only works properly with 3 triangles. will fix.
         t.forward(fullSide) #draw triangle side, scaled by appropriate factor
         t.left(theta)  #turn appropriate angle
         t.forward((fullSide-gap)/2) #go partway#
