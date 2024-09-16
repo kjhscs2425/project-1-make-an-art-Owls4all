@@ -3,7 +3,7 @@ import turtle
 #stuff to mess with 
 sides = 6 #number of sides. (default 6) Changing this not yet fully supported
 s = 100 #side length variable (default 100)
-triCount = 12 #number of triangles  (default 3)       
+triCount = 3 #number of triangles  (default 3)       
 triScale = 0.85 #Relative scale of triangle sides (default 0.85)
 triSpread = 0.75 #affects distance of triangles (default 0.75)
 
@@ -33,9 +33,18 @@ def travel(): # function count 2
     
 
 def triangle(whichOne): # function count 3
-    for i in range(3): # loop count 2
-        t.forward(s*triScale**whichOne) #draw triangle side, scaled by appropriate factor
-        t.left(theta) #turn to draw next side
+        fullSide=s*triScale**whichOne
+        gap = (s*(triSpread/triCount))*2.5*triScale**whichOne
+        t.forward(fullSide) #draw triangle side, scaled by appropriate factor
+        t.left(theta)  #turn appropriate angle
+        t.forward((fullSide-gap)/2) #go partway#
+        t.up() #stop drawing
+        t.forward(gap) #keep going without leaving a mark (this is so triangles don't overlap)
+        t.down() #start drawing again
+        t.forward((fullSide-gap)/2) #finish the side
+        t.left(theta)
+        t.forward(fullSide)
+        t.left(theta)
 #-------------------------------------#
 
 #-----------begin executing-----------#
@@ -44,7 +53,7 @@ shape(s,sides) #draw the hexagon
 t.left(180) #point opposite direction
 travel() #move to start point for first triangle
 
-for i in range(1,triCount): # loop count 3
+for i in range(1,triCount): # loop count 2
     triangle(i) #draw a triangle. Use loop variable to specify which size
     travel() #prepare for next triangle
 
@@ -54,5 +63,6 @@ for i in range(3): # loop count 3
 #-------------------------------------#
 
 #--------Make the image persist-------#
+turtle.hideturtle()
 turtle.exitonclick()
 #-------------------------------------#
