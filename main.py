@@ -2,26 +2,49 @@ import turtle
 import math
 # ---------Setting up variables ---------#
 #stuff to mess with 
-sides = 6 #number of sides. (default 6) Changing this not yet fully supported
+sides = 5 #number of sides. (default 6) Changing this not yet fully supported
 s = 100 #side length variable (default 100)
 triCount = 3 #number of triangles  (default 3)       
 triScale = 0.8 #Relative scale of triangle sides (default 0.85)
 
 #important stuff- best not to change
 t = turtle  # typing shortcut
+t.speed(10)
 theta = 720/sides # angle to turn for triangle edges
-phi = theta/2    # angle to turn for hexagon edges
+phi = 360/sides    # angle to turn for hexagon edges
 alpha = phi/2  # angle from edge to center of gap
 #----------------------------------------#
 
+#math notes 
+'''
+it works for a hexagon because distance center-to-corner is the same as corner-to-corner 
+due to hexagons being made from equilateral triangles.
+This is why it does not work for other shapes inherently: they are made from isoscoles triangles. 
+For the side length variable to be accurate, I must use trig to determine the center distance and angles 
+(whch the existing math does not work properly for.)
+
+Inner length as a function of side lenghth:
+[tbd]
+
+Initial angle should be 1 section above horizontal,
+= 360/sides
+
+Inner angle as a function of side count:
+
+
+'''
+
+
 #---------setting up functions-----------#
 def shape(side,sideCount): # function count 1
+    t.left(360/sideCount)
     t.forward(side) #draw line to edge of hexagon
+    ''' ^^^ Need to change this line ^^^ '''
     t.left(theta) #turn to draw the first side
     for i in range(1,sideCount): # loop count 1
         t.forward(side) #draw a side 
         t.left(phi) #turn to draw next side
-    t.right(theta+180) #turn to center
+    t.left(phi) #turn to center
     t.forward(side) #finish shape
 
 def travel(distance): # function count 2
@@ -48,7 +71,7 @@ def triangle(whichOne): # function count 3
 #-------------------------------------#
 
 #-----------begin executing-----------#
-t.left(phi) #prepare initial angle
+
 shape(s,sides) #draw the hexagon
 t.left(180) #point opposite direction
 travel(3*s/8) #move to start point for first triangle
