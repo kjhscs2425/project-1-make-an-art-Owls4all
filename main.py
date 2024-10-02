@@ -34,7 +34,7 @@ def travel(distance): # function count 2
 
 def triangle(whichOne): # function count 3
         fullSide=s*triScale**whichOne
-        gap = math.sqrt((4/3)*((math.sqrt((((s*(triScale**i))**2)-((s*triScale**(whichOne))**2)*(3/4)))))**2) #right now it only works properly with 3 triangles. will fix.
+        gap = math.sqrt((4/3)*((math.sqrt((((s*(triScale**whichOne))**2)-((s*triScale**(whichOne))**2)*(3/4)))))**2) #right now it only works properly with 3 triangles. will fix.
         t.forward(fullSide) #draw triangle side, scaled by appropriate factor
         t.left(theta)  #turn appropriate angle
         t.forward((fullSide-gap)/2) #go partway#
@@ -52,10 +52,13 @@ t.left(phi) #prepare initial angle
 shape(s,sides) #draw the hexagon
 t.left(180) #point opposite direction
 travel(3*s/8) #move to start point for first triangle
+triangle(1)
+travel(math.sqrt((((s*(triScale))**2)-((s*triScale)**2)*(3/4))))
 
-for i in range(1,triCount): # loop count 2
+for i in range(2,triCount): # loop count 2
     triangle(i) #draw a triangle. Use loop variable to specify which size
     travel(math.sqrt((((s*(triScale**i))**2)-((s*triScale**(i))**2)*(3/4)))) #prepare for next triangle
+
 
 for i in range(3): # loop count 3
         t.forward(s*triScale**(triCount+1)) #draw side of final triangle
