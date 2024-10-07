@@ -2,7 +2,8 @@ import turtle
 import math
 # ---------Setting up variables ---------#
 #stuff to mess with 
-sides = 6 #number of sides. (default 6) Changing this not yet fully supported
+sides = 8 #number of sides. (default 6) Changing this not yet fully supported
+'''6 still works, all else is quite broken.'''
 s = 100 #side length variable (default 100)
 triCount = 3 #number of triangles  (default 3)       
 triScale = 0.8 #Relative scale of triangle sides (default 0.85)
@@ -13,7 +14,14 @@ t.speed(10)
 theta = 720/sides # angle to turn for triangle edges
 phi = 360/sides    # angle to turn for hexagon edges
 alpha = phi/2  # angle from edge to center of gap
-radius = s
+#sin(phi)/s == sin(theta)/radius
+a = math.sin(phi) 
+b = math.sin(180-theta)
+#a/s = b/r
+#s/a = r/b
+r=b*s/a
+radius = r
+print(phi+(180-theta)*2)
 #----------------------------------------#
 
 #math notes 
@@ -24,8 +32,14 @@ This is why it does not work for other shapes inherently: they are made from iso
 For the side length variable to be accurate, I must use trig to determine the center distance and angles 
 (whch the existing math does not work properly for.)
 
-Inner length as a function of side lenghth:
-[tbd]
+Inner length as a function of side lenghth(and angles):
+#sin(phi)/s == sin(theta)/radius
+a = math.sin(phi) 
+b = math.sin(theta)
+#a/s = b/r
+#s/a = r/b
+b*s/a = r
+
 
 Initial angle should be 1 section above horizontal,
 = 360/sides
@@ -34,9 +48,11 @@ Initial angle should be 1 section above horizontal,
 
 #---------setting up functions-----------#
 def shape(side,sideCount): # function count 1
-    t.left(360/sideCount)
+    t.left(phi)
     t.forward(radius) #draw line to corner
     ''' ^^^ Need to change this line ^^^ '''
+    '''broken right now, but should work with a correct radius
+    I think I used the wrong angles.'''
     t.left(theta) #turn to draw the first side
     for i in range(1,sideCount): # loop count 1
         t.forward(side) #draw a side 
