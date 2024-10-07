@@ -2,7 +2,7 @@ import turtle
 import math
 # ---------Setting up variables ---------#
 #stuff to mess with 
-sides = 5 #number of sides. (default 6) Changing this not yet fully supported
+sides = 6 #number of sides. (default 6) Changing this not yet fully supported
 s = 100 #side length variable (default 100)
 triCount = 3 #number of triangles  (default 3)       
 triScale = 0.8 #Relative scale of triangle sides (default 0.85)
@@ -13,6 +13,7 @@ t.speed(10)
 theta = 720/sides # angle to turn for triangle edges
 phi = 360/sides    # angle to turn for hexagon edges
 alpha = phi/2  # angle from edge to center of gap
+radius = s
 #----------------------------------------#
 
 #math notes 
@@ -28,24 +29,20 @@ Inner length as a function of side lenghth:
 
 Initial angle should be 1 section above horizontal,
 = 360/sides
-
-Inner angle as a function of side count:
-
-
 '''
 
 
 #---------setting up functions-----------#
 def shape(side,sideCount): # function count 1
     t.left(360/sideCount)
-    t.forward(side) #draw line to edge of hexagon
+    t.forward(radius) #draw line to corner
     ''' ^^^ Need to change this line ^^^ '''
     t.left(theta) #turn to draw the first side
     for i in range(1,sideCount): # loop count 1
         t.forward(side) #draw a side 
         t.left(phi) #turn to draw next side
     t.left(phi) #turn to center
-    t.forward(side) #finish shape
+    t.forward(radius) #finish shape
 
 def travel(distance): # function count 2
     t.up() #stop drawing
