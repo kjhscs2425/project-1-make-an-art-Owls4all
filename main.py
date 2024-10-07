@@ -1,10 +1,14 @@
 import turtle
 import math
+def makeDegrees(angle):
+    return(angle*180/math.pi)
 # ---------Setting up variables ---------#
 #stuff to mess with 
-sides = 8 #number of sides. (default 6) Changing this not yet fully supported
-'''6 still works, all else is quite broken.'''
-s = 100 #side length variable (default 100)
+sides = 6 #number of sides. (default 6) Changing this not yet fully supported
+'''6 still works, all else is quite broken.
+
+As long as the hexagon works, I'm happy.'''
+s = 60 #side length variable (default 100)
 triCount = 3 #number of triangles  (default 3)       
 triScale = 0.8 #Relative scale of triangle sides (default 0.85)
 
@@ -12,15 +16,16 @@ triScale = 0.8 #Relative scale of triangle sides (default 0.85)
 t = turtle  # typing shortcut
 t.speed(10)
 theta = 720/sides # angle to turn for triangle edges
-phi = 360/sides    # angle to turn for hexagon edges
-alpha = phi/2  # angle from edge to center of gap
+phi = theta/2    # angle to turn for hexagon edges
+beta = (180-phi)/2
+alpha = 180/sides  # angle from edge to center of gap
 #sin(phi)/s == sin(theta)/radius
-a = math.sin(phi) 
-b = math.sin(180-theta)
+a = math.sin(makeDegrees(phi))
+b = math.sin(makeDegrees(beta))
 #a/s = b/r
 #s/a = r/b
 r=b*s/a
-radius = r
+radius = abs(r)
 print(phi+(180-theta)*2)
 #----------------------------------------#
 
@@ -48,7 +53,7 @@ Initial angle should be 1 section above horizontal,
 
 #---------setting up functions-----------#
 def shape(side,sideCount): # function count 1
-    t.left(phi)
+    t.left(2*alpha)
     t.forward(radius) #draw line to corner
     ''' ^^^ Need to change this line ^^^ '''
     '''broken right now, but should work with a correct radius
@@ -70,8 +75,9 @@ def travel(distance): # function count 2
 
 def triangle(whichOne): # function count 3
         fullSide=s*triScale**whichOne
+        twoSides = radius*triScale**whichOne
         gap = math.sqrt((4/3)*((math.sqrt((((s*(triScale**whichOne))**2)-((s*triScale**(whichOne))**2)*(3/4)))))**2) #right now it only works properly with 3 triangles. will fix.
-        t.forward(fullSide) #draw triangle side, scaled by appropriate factor
+        t.forward(twoSides) #draw triangle side, scaled by appropriate factor
         t.left(theta)  #turn appropriate angle
         t.forward((fullSide-gap)/2) #go partway#
         t.up() #stop drawing
@@ -79,7 +85,7 @@ def triangle(whichOne): # function count 3
         t.down() #start drawing again
         t.forward((fullSide-gap)/2) #finish the side
         t.left(theta)
-        t.forward(fullSide)
+        t.forward(twoSides)
         t.left(theta)
 #-------------------------------------#
 
