@@ -3,16 +3,13 @@ import math
 def makeDegrees(angle):
     return(angle*180/math.pi)
 # ---------Setting up variables ---------#
-#stuff to mess with 
-sides = 6 #number of sides. (default 6) Changing this not yet fully supported
-'''6 still works, all else is quite broken.
+#customizeable stuff - should work with whatever
+sides = int(turtle.textinput("Sides","How many sides in the shape:")) #number of sides. (default 6) Changing this not yet fully supported
+s = int(turtle.textinput("Side Length","How long should each side be:"))
+triCount = int(turtle.textinput("Triange Count","How many triangles:")) #number of triangles  (default 3)       
+triScale = float(turtle.textinput("Scale of triangles","How big should each triangle be\n relative to the previous one:")) #Relative scale of triangle sides (default 0.85)
 
-As long as the hexagon works, I'm happy.'''
-s = 60 #side length variable (default 100)
-triCount = 3 #number of triangles  (default 3)       
-triScale = 0.8 #Relative scale of triangle sides (default 0.85)
-
-#important stuff- best not to change
+#important stuff - stuff may break if these change
 t = turtle  # typing shortcut
 t.speed(10)
 theta = 720/sides # angle to turn for triangle edges
