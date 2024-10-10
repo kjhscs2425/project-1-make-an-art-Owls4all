@@ -23,7 +23,6 @@ b = math.sin(makeDegrees(beta))
 #s/a = r/b
 r=b*s/a
 radius = abs(r)
-print(phi+(180-theta)*2)
 #----------------------------------------#
 
 #math notes 
